@@ -1,4 +1,4 @@
-package org.mongomap;
+package com.github.mongomap;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;

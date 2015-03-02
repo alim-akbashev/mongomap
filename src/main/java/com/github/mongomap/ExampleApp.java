@@ -1,9 +1,8 @@
-package org.mongomap;
+package com.github.mongomap;
 
 import com.mongodb.MongoClient;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.Map;
 
 public class ExampleApp

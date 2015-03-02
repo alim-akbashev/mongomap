@@ -5,7 +5,7 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mongomap.ConcurrentMongoMap;
+import com.github.mongomap.ConcurrentMongoMap;
 
 import java.io.IOException;
 
