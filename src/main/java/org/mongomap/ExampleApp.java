@@ -2,26 +2,34 @@ package org.mongomap;
 
 import com.mongodb.MongoClient;
 
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Map;
 
 public class ExampleApp
 {
-    public static void main( String[] args ) throws UnknownHostException {
+    public static void main( String[] args ) throws IOException, ClassNotFoundException {
         MongoClient client = new MongoClient("localhost");
 
-        ConcurrentMongoMap<Integer, String> map = new ConcurrentMongoMap<Integer, String>();
+        ConcurrentMongoMap<Integer, Blah> map = new ConcurrentMongoMap<Integer, Blah>();
         map.setMongoCollection(client.getDB("chat").getCollection("test"));
         map.load();
 
-        map.clear();
-        map.store(123, "hello");
+        Blah t = new Blah();
+        t.a = 1;
+        t.b = 1.5f;
 
-        //map.remove(123, "hello");
+        map.store(123, t);
+        map.remove(123);
 
-        for (Map.Entry<Integer, String> entry : map.entrySet()) {
-            System.out.println(entry.getKey() + " := " + entry.getValue());
+        map.store(432, t);
+
+
+        for (Map.Entry<Integer, Blah> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + " := (" + entry.getValue().a + "," + entry.getValue().b + ")");
         }
+
+        map.clear();
 
     }
 }
