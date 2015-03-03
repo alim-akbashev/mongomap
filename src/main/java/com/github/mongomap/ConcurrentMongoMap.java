@@ -16,17 +16,20 @@ public class ConcurrentMongoMap<K, V extends Serializable> extends ConcurrentHas
         this.collection = collection;
     }
 
-    public void load() throws IOException, ClassNotFoundException {
+    public void load() {
         DBCursor cursor = collection.find();
         try {
             while(cursor.hasNext()) {
                 DBObject object = cursor.next();
                 try {
                     byte[] v = (byte[]) object.get("v");
+                    if (v == null) {
+                        continue;
+                    }
                     K k = (K) object.get("_id");
                     put(k, (V) deserialize(v));
-                } catch (ClassCastException e) {
-                    e.printStackTrace();
+                } catch (Throwable e) {
+                    // just skip so far
                 }
             }
         } finally {
